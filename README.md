@@ -258,35 +258,3 @@ python show_llm_usage.py
 ```powershell
 python manual_test.py
 ```
-
-## Ошибка временной зоны на Windows
-
-Если появляется ошибка:
-
-```text
-ValueError: Неизвестная временная зона LLM_BUDGET_TIMEZONE: America/Los_Angeles
-```
-
-установите зависимости заново:
-
-```powershell
-python -m pip install -r requirements.txt
-```
-
-Пакет `tzdata` включён в зависимости проекта и предоставляет Python базу часовых поясов IANA на Windows.
-
-## Ошибка `CERTIFICATE_VERIFY_FAILED`
-
-Проект использует пакет `truststore` и системное хранилище сертификатов Windows. После обновления архива обязательно переустановите зависимости:
-
-```powershell
-python -m pip install --upgrade -r requirements.txt
-```
-
-Не устанавливайте `verify=False`: это отключает проверку подлинности HTTPS-сервера.
-
-Если соединение проходит через корпоративный прокси или антивирус, его корневой сертификат должен быть установлен в доверенные корневые сертификаты Windows. Альтернативно сохраните выданный администратором корневой сертификат в PEM-файл и добавьте в `.env`:
-
-```env
-REQUESTS_CA_BUNDLE=C:\certificates\company-root-ca.pem
-```
